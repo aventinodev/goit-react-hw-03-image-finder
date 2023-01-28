@@ -24,15 +24,12 @@ class Searchbar extends Component {
         position: 'top-center',
       });
     }
+
     this.props.onSubmit(imageRequest);
 
     this.setState({ imageRequest: '' });
     e.target.reset();
   };
-
-  // resetForm = () => {
-  //   this.setState({ photoRequest: '', page: 1 });
-  // };
 
   render() {
     const { imageRequest } = this.state;
