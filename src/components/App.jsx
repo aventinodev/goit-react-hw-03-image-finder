@@ -2,8 +2,6 @@ import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// import api from '../services/image-api';
-
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -33,7 +31,6 @@ class App extends Component {
     if (prevRequest !== imageRequest || prevState.page !== page) {
       this.setState({
         loading: true,
-        arrayPhotos: [],
       });
 
       const BASE_URL = 'https://pixabay.com/api/';
@@ -63,6 +60,7 @@ class App extends Component {
               };
             }
           );
+
           this.setState(({ arrayPhotos }) => ({
             arrayPhotos: [...arrayPhotos, ...arrayPhotosNew],
             totalPhoto: totalHits,
@@ -84,10 +82,6 @@ class App extends Component {
 
   loadMore = () => {
     this.setState(({ page }) => ({ page: page + 1, loading: true }));
-
-    // if (this.state.totalPhoto > this.state.perPage) {
-    //   return this.setState(prevState => ({ page: prevState.page + 1 }));
-    // }
   };
 
   showMessage = imageRequest => {
