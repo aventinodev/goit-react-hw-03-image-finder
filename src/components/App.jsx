@@ -49,7 +49,8 @@ class App extends Component {
           return response.json();
         })
         .then(({ hits, totalHits }) => {
-          if (!totalHits) {
+          if (!hits.length) {
+            this.setState({ arrayPhotos: [] });
             this.showMessage();
           }
           const arrayPhotosNew = hits.map(
@@ -62,10 +63,10 @@ class App extends Component {
               };
             }
           );
-          this.setState({
-            arrayPhotos: [...arrayPhotosNew, ...prevState.arrayPhotos],
+          this.setState(({ arrayPhotos }) => ({
+            arrayPhotos: [...arrayPhotos, ...arrayPhotosNew],
             totalPhoto: totalHits,
-          });
+          }));
         })
         .catch(error => this.setState({ error: error.message }))
         .finally(() => this.setState({ loading: false }));
@@ -77,7 +78,7 @@ class App extends Component {
   };
 
   loadMore = () => {
-    if (this.state.totalPhoto > 12) {
+    if (this.state.totalPhoto > this.state.perPage) {
       return this.setState(prevState => ({ page: prevState.page + 1 }));
     }
   };
@@ -108,12 +109,12 @@ class App extends Component {
       perPage,
       showModal,
       largeImageURL,
-      // tags,
     } = this.state;
     const { handleFormSubmit, loadMore, openModal, closeModal } = this;
 
-    const IsImages = Boolean(arrayPhotos.length > 0);
-    const isAddLoadBtn = totalPhoto - (page - 1) * perPage > perPage;
+    const IsImages = arrayPhotos.length > 0;
+    const isAddLoadBtn =
+      !loading && totalPhoto - (page - 1) * perPage > perPage;
 
     return (
       <div>
