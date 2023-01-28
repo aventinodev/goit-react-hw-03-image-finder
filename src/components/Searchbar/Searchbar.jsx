@@ -12,6 +12,7 @@ class Searchbar extends Component {
 
   handleChange = e => {
     const { value } = e.currentTarget;
+
     this.setState({ imageRequest: value.toLowerCase() });
   };
 
@@ -27,7 +28,7 @@ class Searchbar extends Component {
 
     this.props.onSubmit(imageRequest);
 
-    this.setState({ imageRequest: '' });
+    // this.setState({ imageRequest: '' });
     e.target.reset();
   };
 
