@@ -78,9 +78,11 @@ class App extends Component {
   };
 
   loadMore = () => {
-    if (this.state.totalPhoto > this.state.perPage) {
-      return this.setState(prevState => ({ page: prevState.page + 1 }));
-    }
+    this.setState(({ page }) => ({ page: page + 1, loading: true }));
+
+    // if (this.state.totalPhoto > this.state.perPage) {
+    //   return this.setState(prevState => ({ page: prevState.page + 1 }));
+    // }
   };
 
   showMessage = imageRequest => {
