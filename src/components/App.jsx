@@ -74,7 +74,12 @@ class App extends Component {
   }
 
   handleFormSubmit = data => {
-    this.setState({ imageRequest: data, page: 1, showModal: false });
+    this.setState({
+      imageRequest: data,
+      page: 1,
+      arrayPhotos: [],
+      showModal: false,
+    });
   };
 
   loadMore = () => {
@@ -114,7 +119,7 @@ class App extends Component {
     } = this.state;
     const { handleFormSubmit, loadMore, openModal, closeModal } = this;
 
-    const IsImages = arrayPhotos.length > 0;
+    const isImages = arrayPhotos.length > 0;
     const isAddLoadBtn =
       !loading && totalPhoto - (page - 1) * perPage > perPage;
 
@@ -122,7 +127,7 @@ class App extends Component {
       <div>
         <Searchbar onSubmit={handleFormSubmit} />
 
-        {IsImages && (
+        {isImages && (
           <ImageGallery images={arrayPhotos} openModal={openModal} />
         )}
         {loading && <Loader />}
