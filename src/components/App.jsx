@@ -72,12 +72,14 @@ class App extends Component {
   }
 
   handleFormSubmit = data => {
-    this.setState({
-      imageRequest: data,
-      page: 1,
-      arrayPhotos: [],
-      showModal: false,
-    });
+    if (this.state.imageRequest !== data) {
+      this.setState({
+        imageRequest: data,
+        page: 1,
+        arrayPhotos: [],
+        showModal: false,
+      });
+    }
   };
 
   loadMore = () => {
